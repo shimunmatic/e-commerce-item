@@ -2,9 +2,8 @@ package com.shimunmatic.ecommerce.item.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -22,4 +21,10 @@ public class Category extends BaseEntity {
     private String description;
     @Column(name = "parent_id")
     private Long parentId;
+    @JoinColumn(name = "parent_id")
+    @Transient
+    private Category parent;
+    @OneToMany
+    @JoinColumn(name = "parent_id", referencedColumnName = "id")
+    private List<Category> subCategories;
 }

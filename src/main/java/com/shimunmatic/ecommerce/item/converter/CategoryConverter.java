@@ -9,17 +9,15 @@ public class CategoryConverter implements Converter<Category, CategoryDTO> {
 
     @Override
     public CategoryDTO toDto(Category category) {
-        return CategoryDTO.builder()
-                .id(category.getId())
-                .name(category.getName())
-                .description(category.getDescription())
-                .parentId(category.getParentId())
-                .build();
+        if (category == null) { return null; }
+        return CategoryDTO.builder().id(category.getId()).name(category.getName()).description(category.getDescription()).parentId(category.getParentId())
+                          .subCategories(this.toDto(category.getSubCategories())).build();
     }
 
     @Override
     public Category toModel(CategoryDTO categoryDTO) {
-        Category category = new Category(categoryDTO.getName(), categoryDTO.getDescription(), categoryDTO.getParentId());
+        if (categoryDTO == null) { return null; }
+        Category category = new Category(categoryDTO.getName(), categoryDTO.getDescription(), categoryDTO.getParentId(), null, toModel(categoryDTO.getSubCategories()));
         category.setId(categoryDTO.getId());
 
         return category;

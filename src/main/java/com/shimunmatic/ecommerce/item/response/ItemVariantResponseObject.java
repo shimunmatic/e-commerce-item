@@ -1,6 +1,5 @@
 package com.shimunmatic.ecommerce.item.response;
 
-import com.shimunmatic.ecommerce.item.dto.ItemDTO;
 import com.shimunmatic.ecommerce.item.dto.ItemVariantDTO;
 import lombok.NoArgsConstructor;
 

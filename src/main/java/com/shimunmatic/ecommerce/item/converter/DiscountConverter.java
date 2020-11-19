@@ -9,21 +9,17 @@ public class DiscountConverter implements Converter<Discount, DiscountDTO> {
 
     @Override
     public DiscountDTO toDto(Discount discount) {
-        return DiscountDTO.builder()
-                .id(discount.getId())
-                .name(discount.getName())
-                .description(discount.getDescription())
-                .active(discount.getActive())
-                .dateValidFrom(discount.getDateValidFrom())
-                .dateValidTo(discount.getDateValidTo())
-                .discountValueType(discount.getDiscountValueType())
-                .value(discount.getValue())
-                .build();
+        if (discount == null) { return null; }
+        return DiscountDTO.builder().id(discount.getId()).name(discount.getName()).description(discount.getDescription()).active(discount.getActive()).dateValidFrom(discount.getDateValidFrom())
+                          .dateValidTo(discount.getDateValidTo()).discountValueType(discount.getDiscountValueType()).value(discount.getValue()).build();
     }
 
     @Override
     public Discount toModel(DiscountDTO discountDTO) {
-        Discount discount = new Discount(discountDTO.getName(), discountDTO.getDescription(), discountDTO.getActive(), discountDTO.getValue(), discountDTO.getDiscountValueType(), discountDTO.getDateValidFrom(), discountDTO.getDateValidTo());
+        if (discountDTO == null) { return null; }
+        Discount discount =
+                new Discount(discountDTO.getName(), discountDTO.getDescription(), discountDTO.getActive(), discountDTO.getValue(), discountDTO.getDiscountValueType(), discountDTO.getDateValidFrom(),
+                        discountDTO.getDateValidTo());
         discount.setId(discountDTO.getId());
 
         return discount;

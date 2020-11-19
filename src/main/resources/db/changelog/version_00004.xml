@@ -5,7 +5,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
-    <!--    this is master changelog file-->
-    <!--    it should only include includes for other changelog files-->
-    <includeAll path="classpath:db/changelog/*.xml"/>
+    <changeSet id="4" author="shimunmatic">
+        
+        <sqlFile path="classpath:db/changelog/sql/item_variants.sql"  />
+
+        <comment>Initial item variants</comment>
+    </changeSet>
 </databaseChangeLog>

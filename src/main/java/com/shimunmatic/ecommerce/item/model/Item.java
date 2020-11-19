@@ -2,9 +2,8 @@ package com.shimunmatic.ecommerce.item.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -24,4 +23,7 @@ public class Item extends BaseEntity {
     private Long categoryId;
     @Column(name = "base_price")
     private Double basePrice;
+    @OneToMany
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
+    private List<ItemVariant> variants;
 }

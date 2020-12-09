@@ -1,7 +1,15 @@
-FROM openjdk:15-jdk
-MAINTAINER Shimun Matic <shimun.matic@gmail.com>
+FROM openjdk:15-jdk-alpine as builder
+LABEL Shimun Matic <shimun.matic@gmail.com>
+WORKDIR /workspace/app
 
-ARG JAR_FILE
-ADD target/${JAR_FILE} /usr/share/ecommerce/app.jar
+COPY . /workspace/app
+RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
-ENTRYPOINT ["java","-jar", "--enable-preview","/usr/share/ecommerce/app.jar"]
+
+FROM openjdk:15-jdk-alpine
+ARG DEPENDENCY=/workspace/app/target/dependency
+COPY --from=builder ${DEPENDENCY}/BOOT-INF/lib /app/lib
+COPY --from=builder ${DEPENDENCY}/META-INF /app/META-INF
+COPY --from=builder ${DEPENDENCY}/BOOT-INF/classes /app
+
+ENTRYPOINT ["java", "--enable-preview","-cp", "app:app/lib/*",  "com.shimunmatic.ecommerce.item.ECommerceItemApplication"]

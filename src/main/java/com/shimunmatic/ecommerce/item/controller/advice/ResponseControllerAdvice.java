@@ -26,7 +26,13 @@ public class ResponseControllerAdvice implements ResponseBodyAdvice<Object> {
             serverHttpResponse.setStatusCode(re.getStatusCode());
             if (re.getBody() instanceof RestException r) {return ResponseObject.ofErrorMessage(r, r.getReason()); }
             return re;
-        } else if (body instanceof RestException r) { return ResponseObject.ofErrorMessage(r, r.getReason()); }
+        } else if (body instanceof RestException r) {
+            return ResponseObject.ofErrorMessage(r, r.getReason());
+        } else if (methodParameter.getMethod() != null && "error".equals(methodParameter.getMethod().getName())) {
+            return ResponseObject.ofErrorMessage(body, "Unexpected Error");
+        } else if (methodParameter.getMethod() != null && "openapiJson".equals(methodParameter.getMethod().getName())) {
+            return body;
+        }
 
         return ResponseObject.ofData(body);
     }

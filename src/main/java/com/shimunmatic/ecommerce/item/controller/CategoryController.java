@@ -7,15 +7,13 @@ import com.shimunmatic.ecommerce.item.service.definition.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("api/item/category")
+@RequestMapping("api/v1/item/categories")
 public class CategoryController {
     private final CategoryService categoryService;
     private final Converter<Category, CategoryDTO> converter;
@@ -33,5 +31,14 @@ public class CategoryController {
         List<CategoryDTO> dtos = converter.toDto(models);
 
         return ResponseEntity.ok(dtos);
+    }
+
+    @PostMapping
+    public ResponseEntity<CategoryDTO> saveNewCategory(@RequestBody CategoryDTO categoryDTO) {
+        log.info("...saveNewCategory...{}", categoryDTO);
+
+        CategoryDTO savedDTO = converter.toDto(categoryService.save(converter.toModel(categoryDTO)));
+
+        return ResponseEntity.ok(savedDTO);
     }
 }

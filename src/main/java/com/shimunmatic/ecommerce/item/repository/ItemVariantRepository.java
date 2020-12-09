@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ItemVariantRepository extends JpaRepository<ItemVariant, Long> {
@@ -16,4 +17,7 @@ public interface ItemVariantRepository extends JpaRepository<ItemVariant, Long> 
 
     @Query("select iv from ItemVariant iv where iv.itemId = :itemId and (iv.deleted = null or iv.deleted = false)")
     List<ItemVariant> findAllByItemId(Long itemId);
+
+    @Query("select iv from ItemVariant iv where iv.id = :variantId and iv.itemId = :itemId and (iv.deleted = null or iv.deleted = false)")
+    Optional<ItemVariant> findOneByItemIdAndId(Long itemId, Long variantId);
 }

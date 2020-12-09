@@ -5,10 +5,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
-    <changeSet id="4" author="shimunmatic">
+    <changeSet id="version_0.3" author="shimunmatic">
         
-        <sqlFile path="classpath:db/changelog/sql/item_variants.sql"  />
+        <sqlFile path="classpath:db/changelog/sql/discounts.sql"  />
 
-        <comment>Initial item variants</comment>
+        <comment>Initial discounts</comment>
     </changeSet>
 </databaseChangeLog>

@@ -4,7 +4,7 @@ server:
     include-stacktrace: on_trace_param
 spring:
   datasource:
-    url: jdbc:postgresql://192.168.2.219:5432/db_ecommerce
+    url: jdbc:postgresql://localhost:5432/db_ecommerce
     username: ecommerce
     password: ecommerce
   liquibase:

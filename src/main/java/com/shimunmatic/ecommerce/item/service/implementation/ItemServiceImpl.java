@@ -3,6 +3,7 @@ package com.shimunmatic.ecommerce.item.service.implementation;
 import com.shimunmatic.ecommerce.item.converter.Converter;
 import com.shimunmatic.ecommerce.item.dto.ItemDTO;
 import com.shimunmatic.ecommerce.item.dto.ItemVariantDTO;
+import com.shimunmatic.ecommerce.item.exception.ResourceNotFoundException;
 import com.shimunmatic.ecommerce.item.model.Item;
 import com.shimunmatic.ecommerce.item.model.ItemVariant;
 import com.shimunmatic.ecommerce.item.repository.ItemRepository;
@@ -37,9 +38,12 @@ public class ItemServiceImpl extends AbstractService<Item, Long> implements Item
     }
 
     @Override
-    public ItemDTO getDetailsDto(Long itemId) {
+    public ItemDTO getDetailsDto(Long itemId) throws ResourceNotFoundException {
         Optional<Item> oi = getById(itemId);
-        if (oi.isEmpty()) return null;
+        if (oi.isEmpty()) {
+            log.info("Item resource not found: {}", itemId);
+            throw new ResourceNotFoundException("No item found matching ID: " + itemId);
+        }
 
         List<ItemVariant> variants = itemVariantService.getVariantsForItem(itemId);
         ItemDTO item = itemConverter.toDto(oi.get());
@@ -48,5 +52,13 @@ public class ItemServiceImpl extends AbstractService<Item, Long> implements Item
         return item;
     }
 
+    @Override
+    public List<ItemDTO> getAllDto() {
+        return itemConverter.toDto(getAll());
+    }
 
+    @Override
+    public ItemDTO saveDto(ItemDTO dto) {
+        return itemConverter.toDto(save(itemConverter.toModel(dto)));
+    }
 }

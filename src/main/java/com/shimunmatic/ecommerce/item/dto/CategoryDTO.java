@@ -1,6 +1,8 @@
 package com.shimunmatic.ecommerce.item.dto;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
+import lombok.Data;
 
 import java.util.List;
 
@@ -11,5 +13,6 @@ public class CategoryDTO {
     private String name;
     private String description;
     private Long parentId;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<CategoryDTO> subCategories;
 }

@@ -1,5 +1,6 @@
 package com.shimunmatic.ecommerce.item.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,5 +14,6 @@ public class ItemDTO {
     private String description;
     private Double basePrice;
     private Long categoryId;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<ItemVariantDTO> variants;
 }

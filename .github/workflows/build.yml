@@ -25,12 +25,11 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      - name: Build with Maven
-        run: mvn -B clean install --file pom.xml -DskipTests
 
       - name: Docker build
-        run: docker build -t docker-registry.shimunmatic.de/e-commerce-item:latest .
-
+        run: docker build -t ${{ secrets.DOCKER_REGISTRY }}/e-commerce-item:latest .
+      - name: Docker login to registry
+        run: docker login ${{ secrets.DOCKER_REGISTRY }} -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Docker push to registry
-        run: docker push docker-registry.shimunmatic.de/e-commerce-item:latest
+        run: docker push ${{ secrets.DOCKER_REGISTRY }}/e-commerce-item:latest
 

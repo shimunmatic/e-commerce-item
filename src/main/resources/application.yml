@@ -18,3 +18,8 @@ spring:
       hibernate:
         jdbc:
           time_zone: UTC
+
+pageable:
+  default:
+    page-size: 10
+    page: 0

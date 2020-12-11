@@ -1,12 +1,15 @@
 package com.shimunmatic.ecommerce.item.controller;
 
+import com.shimunmatic.ecommerce.item.dto.ItemCriteria;
 import com.shimunmatic.ecommerce.item.dto.ItemDTO;
 import com.shimunmatic.ecommerce.item.dto.ItemVariantDTO;
 import com.shimunmatic.ecommerce.item.exception.ResourceNotFoundException;
+import com.shimunmatic.ecommerce.item.response.ResponseObject;
 import com.shimunmatic.ecommerce.item.service.definition.ItemService;
 import com.shimunmatic.ecommerce.item.service.definition.ItemVariantService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,17 +31,17 @@ public class ItemController {
     }
 
     @GetMapping(path = "")
-    public ResponseEntity<List<ItemDTO>> getItems(@RequestParam(name = "categoryId", required = false) Long categoryId) {
+    public ResponseEntity<ResponseObject<Page<ItemDTO>>> getItems(ItemCriteria itemCriteria) {
         log.info("...getItems...");
-        List<ItemDTO> dtos = categoryId == null ? itemService.getAllDto() : itemService.getItemsForCategoryDto(categoryId);
-        return ResponseEntity.ok(dtos);
+        Page<ItemDTO> dtos = itemService.getAll(itemCriteria);
+        return ResponseEntity.ok(ResponseObject.ofData(dtos));
     }
 
     @GetMapping(path = "{itemId}")
-    public ResponseEntity<ItemDTO> getItemDetails(@PathVariable("itemId") Long itemId) throws ResourceNotFoundException {
+    public ResponseEntity<ResponseObject<ItemDTO>> getItemDetails(@PathVariable("itemId") Long itemId) throws ResourceNotFoundException {
         log.info("...getItemDetails...id: {}", itemId);
         ItemDTO dto = itemService.getDetailsDto(itemId);
-        return ResponseEntity.ok(dto);
+        return ResponseEntity.ok(ResponseObject.ofData(dto));
     }
 
     @PostMapping(path = "")

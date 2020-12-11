@@ -3,7 +3,10 @@ package com.shimunmatic.ecommerce.item.controller;
 import com.shimunmatic.ecommerce.item.converter.Converter;
 import com.shimunmatic.ecommerce.item.dto.CategoryDTO;
 import com.shimunmatic.ecommerce.item.model.Category;
+import com.shimunmatic.ecommerce.item.response.ResponseObject;
 import com.shimunmatic.ecommerce.item.service.definition.CategoryService;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,11 +37,12 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoryDTO> saveNewCategory(@RequestBody CategoryDTO categoryDTO) {
+    @ApiResponse()
+    public ResponseEntity<ResponseObject<CategoryDTO>> saveNewCategory(@RequestBody CategoryDTO categoryDTO) {
         log.info("...saveNewCategory...{}", categoryDTO);
 
         CategoryDTO savedDTO = converter.toDto(categoryService.save(converter.toModel(categoryDTO)));
 
-        return ResponseEntity.ok(savedDTO);
+        return ResponseEntity.ok(ResponseObject.ofData(savedDTO));
     }
 }

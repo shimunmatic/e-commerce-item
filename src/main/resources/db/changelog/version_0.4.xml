@@ -6,9 +6,12 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
     <changeSet id="version_0.4" author="shimunmatic">
-        
-        <sqlFile path="classpath:db/changelog/sql/item_variants.sql"  />
-
-        <comment>Initial item variants</comment>
+        <addColumn schemaName="sc_ecommerce_item" tableName="item">
+            <column name="thumbnail" type="varchar(255)"/>
+        </addColumn>
+        <addColumn schemaName="sc_ecommerce_item" tableName="item_variant">
+            <column name="thumbnail" type="varchar(255)"/>
+        </addColumn>
+        <comment>Item and item variant thumbnail path</comment>
     </changeSet>
 </databaseChangeLog>

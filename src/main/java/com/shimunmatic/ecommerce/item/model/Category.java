@@ -19,6 +19,8 @@ public class Category extends BaseEntity {
     private String name;
     @Column(name = "description")
     private String description;
+    @Column(name = "thumbnail")
+    private String thumbnail;
     @Column(name = "parent_id")
     private Long parentId;
     @JoinColumn(name = "parent_id")

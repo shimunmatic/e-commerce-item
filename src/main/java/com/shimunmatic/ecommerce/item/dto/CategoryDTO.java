@@ -12,6 +12,7 @@ public class CategoryDTO {
     private Long id;
     private String name;
     private String description;
+    private String thumbnail;
     private Long parentId;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<CategoryDTO> subCategories;

@@ -5,11 +5,10 @@ import lombok.Data;
 
 @Builder
 @Data
-public class ItemVariantDTO {
+public class ItemMediaDTO {
     private Long id;
     private String name;
-    private String description;
-    private String thumbnail;
-    private Double basePrice;
+    private String path;
+    private String type;
     private Long itemId;
 }

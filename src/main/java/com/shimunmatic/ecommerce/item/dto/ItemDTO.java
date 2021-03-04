@@ -12,8 +12,11 @@ public class ItemDTO {
     private Long id;
     private String name;
     private String description;
+    private String thumbnail;
     private Double basePrice;
     private Long categoryId;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<ItemVariantDTO> variants;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private List<ItemMediaDTO> itemMedia;
 }

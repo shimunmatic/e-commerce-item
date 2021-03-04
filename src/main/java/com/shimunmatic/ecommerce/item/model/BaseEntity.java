@@ -15,13 +15,13 @@ public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
-    @Column(name = "date_created")
+    @Column(name = "date_created", updatable = false)
     protected Instant dateCreated;
     @Column(name = "date_updated")
     protected Instant dateUpdated;
-    @Column(name = "date_deleted")
+    @Column(name = "date_deleted", updatable = false)
     protected Instant dateDeleted;
-    @Column(name = "deleted")
+    @Column(name = "deleted", updatable = false)
     protected Boolean deleted;
 
     @PrePersist

@@ -19,6 +19,8 @@ public class Item extends BaseEntity {
     private String name;
     @Column(name = "description")
     private String description;
+    @Column(name = "thumbnail")
+    private String thumbnail;
     @Column(name = "category_id")
     private Long categoryId;
     @Column(name = "base_price")
@@ -26,4 +28,7 @@ public class Item extends BaseEntity {
     @OneToMany
     @JoinColumn(name = "item_id", referencedColumnName = "id")
     private List<ItemVariant> variants;
+    @OneToMany
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
+    private List<ItemMedia> itemMedia;
 }

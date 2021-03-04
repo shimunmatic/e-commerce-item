@@ -10,13 +10,14 @@ public class ItemVariantConverter implements Converter<ItemVariant, ItemVariantD
     @Override
     public ItemVariantDTO toDto(ItemVariant item) {
         if (item == null) { return null; }
-        return ItemVariantDTO.builder().id(item.getId()).name(item.getName()).description(item.getDescription()).itemId(item.getItemId()).basePrice(item.getBasePrice()).build();
+        return ItemVariantDTO.builder().id(item.getId()).name(item.getName()).description(item.getDescription()).thumbnail(item.getThumbnail()).itemId(item.getItemId()).basePrice(item.getBasePrice())
+                             .build();
     }
 
     @Override
     public ItemVariant toModel(ItemVariantDTO itemDTO) {
         if (itemDTO == null) { return null; }
-        ItemVariant item = new ItemVariant(itemDTO.getName(), itemDTO.getDescription(), itemDTO.getItemId(), itemDTO.getBasePrice(), null);
+        ItemVariant item = new ItemVariant(itemDTO.getName(), itemDTO.getDescription(), itemDTO.getThumbnail(), itemDTO.getItemId(), itemDTO.getBasePrice(), null);
         item.setId(itemDTO.getId());
         return item;
     }
